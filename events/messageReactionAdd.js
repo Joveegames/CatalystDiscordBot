@@ -1,6 +1,7 @@
 
 const { channels } = require('../resources/channels');
 const { emojiRoles } = require('../resources/roles');
+const { users } = require('../resources/users');
 
 const eventName = 'messageReactionAdd';
 
@@ -24,16 +25,17 @@ module.exports = {
 
         // Reaction roles:
         if (reaction.message.channel.id === roleReactionChannel) {
+            if (reaction.message.author.id === users.CARDANOBOT) {
+                const { guild } = reaction.message;
+                const userWhoReacted = guild.members.cache.find(member => member.id === user.id);
 
-            const { guild } = reaction.message;
-            const userWhoReacted = guild.members.cache.find(member => member.id === user.id);
+                const emoji = reaction._emoji.name
+                const roleID = emojiRoles[emoji];
 
-            const emoji = reaction._emoji.name
-            const roleID = emojiRoles[emoji];
-
-            if (roleID) {
-                const role = reaction.message.guild.roles.cache.find(role => role.id === roleID);
-                userWhoReacted.roles.add(role);
+                if (roleID) {
+                    const role = reaction.message.guild.roles.cache.find(role => role.id === roleID);
+                    userWhoReacted.roles.add(role);
+                }
             }
         }
     },
