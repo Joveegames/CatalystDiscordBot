@@ -1,7 +1,13 @@
 
 const emojis = {
-    DOG: '🐶',
-    CAT: '🐱',
+    VERIFIED: '👷',
+    COMMUNITYADVISOR: '👩‍🍼',
+    PROPOSER: '🚶',
+    COHORTMEMBER: '🐄',
+    PUBLICVOTER: '🥜',
+    DEVFORHIRE: '🐞',
+    DESIGNERFORHIRE: '🌵',
+    PROPOSALMENTOR: '🌻',
 }
 
 module.exports = {
