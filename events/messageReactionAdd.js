@@ -2,6 +2,7 @@
 const { emojiRoles } = require('../resources/roles');
 const { users } = require('../resources/users');
 const { messages } = require('../resources/messages');
+const { giveUserRole } = require('../functions/basicFunctions');
 
 const eventName = 'messageReactionAdd';
 
@@ -31,8 +32,7 @@ module.exports = {
                 const roleID = emojiRoles[emoji];
 
                 if (roleID) {
-                    const role = reaction.message.guild.roles.cache.find(role => role.id === roleID);
-                    userWhoReacted.roles.add(role);
+                    giveUserRole(roleID, reaction.message.guild, userWhoReacted);
                 }
             }
         }
