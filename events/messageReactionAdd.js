@@ -21,7 +21,6 @@ module.exports = {
 
         if (user.bot) return;
 
-        // Reaction roles:
         if (reaction.message.author.id === users.CARDANOBOT) {
             const messageToReactTo = reaction.message.content;
             if (messageToReactTo == messages.REACTIONROLES) {
