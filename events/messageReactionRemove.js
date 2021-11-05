@@ -1,10 +1,10 @@
 
-const { channels } = require('../resources/channels');
 const { emojiRoles } = require('../resources/roles');
+const { users } = require('../resources/users');
+const { messages } = require('../resources/messages');
+const { removeUserRole } = require('../functions/basicFunctions');
 
 const eventName = 'messageReactionRemove';
-
-const roleReactionChannel = channels.REACTIONROLES;
 
 module.exports = {
     name: eventName,
@@ -22,18 +22,18 @@ module.exports = {
 
         if (user.bot) return;
 
-        // Reaction roles:
-        if (reaction.message.channel.id === roleReactionChannel) {
-            
-            const { guild } = reaction.message;
-            const userWhoReacted = guild.members.cache.find(member => member.id === user.id);
-            
-            const emoji = reaction._emoji.name
-            const roleID = emojiRoles[emoji];
-            
-            if (roleID) {
-                const role = reaction.message.guild.roles.cache.find(role => role.id === roleID);
-                userWhoReacted.roles.remove(role);
+        if (reaction.message.author.id === users.CARDANOBOT) {
+            const messageToReactTo = reaction.message.content;
+            if (messageToReactTo == messages.REACTIONROLES) {
+                const { guild } = reaction.message;
+                const userWhoReacted = guild.members.cache.find(member => member.id === user.id);
+
+                const emoji = reaction._emoji.name
+                const roleID = emojiRoles[emoji];
+
+                if (roleID) {
+                    removeUserRole(roleID, reaction.message.guild, userWhoReacted);
+                }
             }
         }
     },
