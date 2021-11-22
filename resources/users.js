@@ -1,8 +1,10 @@
 
+const { clientID } = require('../config.json');
+
 const users = {
-    CARDANOBOT: '878963477279014912',
+    CARDANOBOT: clientID,
 }
 
 module.exports = {
     users,
-} 
+}
