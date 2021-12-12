@@ -19,7 +19,7 @@ module.exports = {
             type: 'text',
             topic: 'Bot set topic',
             parent: categories.BOTCREATEDCHANNELS,
-
+            position: 2,
             permissionOverwrites: [
                 {
                     id: user,
