@@ -8,6 +8,7 @@ const publicVoterEmoji = emojis.PUBLICVOTER;
 const devForHireEmoji = emojis.DEVFORHIRE;
 const designerForHireEmoji = emojis.DESIGNERFORHIRE;
 const proposalMentorEmoji = emojis.PROPOSALMENTOR;
+const challengeTeamEmoji = emojis.CHALLENGETEAM;
 
 const messages = {
     REACTIONROLES: `Choose a role to recognize your interest.
@@ -20,6 +21,7 @@ ${publicVoterEmoji} **Public Voter** - Choose this role if share your voting bal
 ${devForHireEmoji} **dev-for-hire** - If you are a developer and looking for team or ideas to use your skills on.
 ${designerForHireEmoji} **designer-for-hire** - If you are a designer and looking for team or ideas to brush out.
 ${proposalMentorEmoji} **Proposal Mentor** - If you are interested to improve and help proposers to write proposals.
+${challengeTeamEmoji} **Challenge Team** - You are a confirmed challenge team member of current funding round.
 
 Click a reaction corresponding to role name, to show your interest.
 This will unlock new channels.
