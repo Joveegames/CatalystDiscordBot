@@ -17,23 +17,41 @@ module.exports = {
     async execute(interaction) {
         const user = interaction.user;
         const username = user.username;
-        const fundIndex = interaction.options.getInteger('fund');
-        const selectedCategoryName = 'FUND ' + fundIndex.toString();
+        const fundIndexString = interaction.options.getInteger('fund').toString();
+        const newChannelName = `f${fundIndexString}-${username}'s-channel`;
+
+        const selectedCategoryName = 'FUND ' + fundIndexString;
+        const allChannels = interaction.client.channels.cache;
 
         // Get fund categories
-        const categories = interaction.client.channels.cache.filter(channel => channel.type === 'GUILD_CATEGORY');
+        const categories = allChannels.filter(channel => channel.type === 'GUILD_CATEGORY');
         const fundCategories = categories.filter(category => category.name.startsWith('FUND '));
 
-        // Check that value is within the categories
-        const categoryId = fundCategories.find(category => category.name === selectedCategoryName)
+        // Check that we have such category
+        const categoryId = fundCategories.find(category => category.name === selectedCategoryName).id;
         if (categoryId) {
 
+            // Get channel names in the category
+            const channelsInSelectedCategory = allChannels.filter(channel => channel.parentId === categoryId)
+            const channelNames = channelsInSelectedCategory.map(channel => channel.name);
+
+            // Add new channel name in to the list
+            channelNames.push(newChannelName);
+
+            // Order names alphabetically
+            const namesSortedAlphabetically = channelNames.sort(function (a, b) {
+                if (a < b) { return -1; }
+                if (a > b) { return 1; }
+                return 0;
+            });
+
             // Create the channel
-            interaction.guild.channels.create(username + '\'s channel', {
+            const newChannelPosition = namesSortedAlphabetically.indexOf(newChannelName);
+            interaction.guild.channels.create(newChannelName, {
                 type: 'text',
                 topic: 'Bot set topic',
                 parent: categoryId,
-                position: 0,
+                // position: newChannelPosition, // Doesn't work, have to do in the 'then' statement.
                 permissionOverwrites: [
                     {
                         id: user,
@@ -42,6 +60,7 @@ module.exports = {
                 ],
             })
                 .then(channel => {
+                    channel.setPosition(newChannelPosition)
                     channel.createInvite(
                         {
                             maxAge: 0, // unlimited time.
@@ -49,15 +68,14 @@ module.exports = {
                         }
                     )
                         .then(invite => {
-                            console.log(`Created an invite with a code of ${invite.code}`);
-                            interaction.reply(`Created a channel under ${selectedCategoryName}. Invite link for this channel: https://discord.gg/${invite.code}`);
+                            // console.log(`Created an invite with a code of ${invite.code}`);
+                            interaction.reply(`Created a channel under ${selectedCategoryName} at position ${newChannelPosition}. Invite link for this channel: https://discord.gg/${invite.code}`);
                         })
                         .catch(console.error)
                 });
         }
         else {
-            console.log('false: ' + selectedCategoryName);
             interaction.reply({ content: 'No such fund index. Channel creation failed.', ephemeral: true });
         }
     }
-};
+}
