@@ -8,6 +8,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName(commandName)
 		.setDescription(commandDescription),
+	cooldown: 30,
 	async execute(interaction) {
 		await interaction.reply(commandContent);
 	},
