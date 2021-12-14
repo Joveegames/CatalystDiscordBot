@@ -8,6 +8,7 @@ const emojis = {
     DEVFORHIRE: '🐞',
     DESIGNERFORHIRE: '🌵',
     PROPOSALMENTOR: '🌻',
+    CHALLENGETEAM: '🏺',
 }
 
 module.exports = {
