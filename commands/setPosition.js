@@ -29,15 +29,15 @@ module.exports = {
 
         console.log('new channel index: ' + newChannelIndex);
         // const channelId = interaction.channel.id;
-        const channelId = '889779700778536971';
+        // const channelId = '889779700778536971';
 
         // Get channels with chosen category as parent (888702378017173534)
-        interaction.guild.channels.fetch()
-            .then(
+        // interaction.guild.channels.fetch()
+        //     .then(
 
-                (channels) => { console.log(channels) }
-            )
-            .catch(console.error);
+        //         (channels) => { console.log(channels) }
+        //     )
+        //     .catch(console.error);
 
         // interaction.guild.channel.setPositions([{ channel: channelId, position: newChannelIndex }])
         //     .then(guild => console.log(`Updated channel positions for ${guild}`))
