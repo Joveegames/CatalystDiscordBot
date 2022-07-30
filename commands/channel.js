@@ -15,11 +15,11 @@ module.exports = {
         const user = interaction.user;
         const username = user.username;
 
-        interaction.guild.channels.create(username + '\'s channel', {
+        interaction.guild.channels.create(username + '\'s channel2', {
             type: 'text',
             topic: 'Bot set topic',
             parent: categories.BOTCREATEDCHANNELS,
-
+            position: 2,
             permissionOverwrites: [
                 {
                     id: user,
