@@ -9,19 +9,14 @@ module.exports = {
         .setDescription(commandDescription),
     async execute(interaction) {
         var commandContent = '';
-
         const categories = interaction.client.channels.cache.filter(channel => channel.type === 'GUILD_CATEGORY');
 
         categories.forEach(category => {
-
-            // console.log(`${category.name}:`);
             commandContent += `${category.name}:\n`;
 
             const categoryID = category.id;
             const channelsInCategory = interaction.client.channels.cache.filter(channel => channel.parentId === categoryID);
             channelsInCategory.forEach(channel => {
-
-                // console.log(`    ${channel.name}`);
                 commandContent += `    ${channel.name}\n`;
             })
         })
